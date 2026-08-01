@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- A project/collection ID is not a secret — see README "Configuration". These are the real,
+	     already-provisioned IDs for this showcase's Mudbase project (cloud.mudbase.dev), the same
+	     project every other language port in this monorepo targets. -->
+	<key>MudbaseProjectId</key>
+	<string>6a6d3faad07caabbbdfc5698</string>
+	<key>MudbaseBaseURL</key>
+	<string>https://cloud.mudbase.dev</string>
+	<key>DocumentsCollectionId</key>
+	<string>6a6d3fcdd07caabbbdfc5842</string>
+	<key>SearchLogCollectionId</key>
+	<string>6a6d3fcdd07caabbbdfc5857</string>
+</dict>
+</plist>
