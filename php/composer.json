@@ -1,0 +1,28 @@
+{
+    "name": "mudbase/showcase-docs-search-php",
+    "description": "Mudbase Docs Search — PHP reimplementation of the Mudbase showcase AI-powered knowledge-base search app. Plain PHP, no framework, backed by the real Mudbase PHP SDK plus a direct Anthropic Claude API call for the Ask AI completion step.",
+    "type": "project",
+    "license": "unlicense",
+    "require": {
+        "php": "^8.1",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.3",
+        "mudbase/sdk": "*"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../mudbase-sdk/php"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
