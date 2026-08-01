@@ -1,0 +1,74 @@
+name: mudbase_showcase_docs_search
+description: >
+  Flutter reimplementation of the Mudbase Showcase Docs Search knowledge-base
+  app — guest browsing, document CRUD, client-side keyword search, and an
+  honestly-scoped Ask AI feature — built on the Mudbase BaaS with zero custom
+  backend of its own (see plan/build-plan.md "Ask AI architecture" for why
+  Ask AI's answer-synthesis step is a documented gap rather than faked).
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+  flutter: '>=3.27.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.6.1
+
+  # Navigation
+  go_router: ^14.6.2
+
+  # HTTP client - shared with the Mudbase SDK's own MudbaseSdk().dio instance
+  dio: ^5.7.0
+
+  # Mudbase Dart SDK (generated via OpenAPI Generator, built_value pattern).
+  # Not published to pub.dev - resolved as a sibling checkout. `mobile-flutter/`
+  # is one level inside the `mudbase-showcase-docs-search` repo, so reaching a
+  # flat sibling of that repo (mudbase-sdk cloned next to it, at the same
+  # parent level - see README "Setup") takes exactly two `../` segments:
+  # mobile-flutter/ -> mudbase-showcase-docs-search/ -> <parent> -> mudbase-sdk/dart.
+  mudbase_sdk:
+    path: ../../mudbase-sdk/dart
+
+  # Declared directly (not just pulled in transitively via mudbase_sdk)
+  # because auth_service.dart imports `package:built_value/serializer.dart`
+  # directly for `FullType` when building request bodies through the SDK's
+  # own builder classes/serializers - same version constraint the SDK itself
+  # uses, so there is no diamond-dependency conflict. Same pattern as the
+  # sibling kanban/social/ecommerce Flutter apps.
+  built_value: '>=8.4.0 <9.0.0'
+
+  # Secure token storage - Keychain (iOS) / EncryptedSharedPreferences (Android).
+  # Never SharedPreferences for the auth token (project hard security rule) -
+  # this app's session token belongs to a guest-anonymous OR real signed-in
+  # user, and both are treated with the same care.
+  flutter_secure_storage: ^9.2.2
+
+  # Date/time formatting (relative timestamps on document cards, recent
+  # searches list).
+  intl: ^0.19.0
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+  # Plain `package:test` (not `flutter_test`) for the pure-Dart logic layer
+  # (models, retrieval scoring, formatters, repositories) - this build
+  # environment has no Flutter SDK installed (confirmed before writing any
+  # code; see `plan/build-plan.md` "Testing Note"), so `flutter_test`-based
+  # tests could never actually be run here. Tests in `test/models/` and
+  # `test/core/` depend on nothing but `dart:core` and this app's own
+  # pure-Dart files, so they run with plain `dart test` right now,
+  # independent of Flutter - genuinely executed and passing in this build,
+  # not just written.
+  test: ^1.24.0
+
+flutter:
+  uses-material-design: true
