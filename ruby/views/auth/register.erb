@@ -1,0 +1,35 @@
+<div style="max-width:28rem; margin:0 auto;">
+  <h1 class="page-title" style="text-align:center;">Create your account</h1>
+  <p class="page-subtitle" style="text-align:center;">Sign up to publish documents to the library.</p>
+
+  <form action="/register" method="post" class="stack" novalidate>
+    <div style="display:flex; gap:0.75rem;">
+      <div class="field" style="flex:1;">
+        <label for="first_name">First name</label>
+        <input type="text" id="first_name" name="first_name" autocomplete="given-name" value="<%= h(@first_name) %>" required>
+      </div>
+      <div class="field" style="flex:1;">
+        <label for="last_name">Last name</label>
+        <input type="text" id="last_name" name="last_name" autocomplete="family-name" value="<%= h(@last_name) %>" required>
+      </div>
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="email" value="<%= h(@email) %>" required>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="new-password" required>
+      <span class="field-hint">At least 8 characters.</span>
+    </div>
+    <label style="display:flex; align-items:flex-start; gap:0.5rem; font-size:0.85rem;">
+      <input type="checkbox" name="agreed_to_terms" value="1" style="margin-top:0.2rem;">
+      <span>I agree to the Terms of Service and Privacy Policy.</span>
+    </label>
+    <button type="submit" class="btn btn-block">Create account</button>
+  </form>
+
+  <p style="text-align:center; margin-top:1.25rem; font-size:0.85rem;">
+    Already have an account? <a href="/login">Sign in</a>.
+  </p>
+</div>

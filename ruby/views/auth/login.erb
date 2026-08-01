@@ -1,0 +1,33 @@
+<div style="max-width:26rem; margin:0 auto;">
+  <h1 class="page-title" style="text-align:center;">Sign in</h1>
+  <p class="page-subtitle" style="text-align:center;">Sign in to publish and manage documents. Browsing and Ask AI work without an account too.</p>
+
+  <form action="/login" method="post" class="stack" novalidate>
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="email" value="<%= h(@email) %>" required>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="btn btn-block">Sign in</button>
+  </form>
+
+  <% if @demo_account %>
+    <p style="text-align:center; margin-top:1.5rem; color:var(--muted); font-size:0.85rem;">
+      Quick demo sign-in (no retyping credentials):
+    </p>
+    <div class="demo-accounts">
+      <form action="/login" method="post" class="inline-form">
+        <input type="hidden" name="email" value="<%= h(@demo_account[:email]) %>">
+        <input type="hidden" name="password" value="<%= h(@demo_account[:password]) %>">
+        <button type="submit" class="btn btn-outline btn-sm">Sign in as demo member</button>
+      </form>
+    </div>
+  <% end %>
+
+  <p style="text-align:center; margin-top:1.25rem; font-size:0.85rem;">
+    No account? <a href="/register">Create one</a>.
+  </p>
+</div>

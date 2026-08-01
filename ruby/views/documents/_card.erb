@@ -1,0 +1,13 @@
+<% tags = parse_tags(document[:tags]) %>
+<a href="/documents/<%= h(document[:_id]) %>" class="doc-card">
+  <h2 class="doc-card-title"><%= h(document[:title]) %></h2>
+  <% if tags.any? %>
+    <div class="tag-row">
+      <% tags.each do |tag| %>
+        <span class="badge"><%= h(tag) %></span>
+      <% end %>
+    </div>
+  <% end %>
+  <p class="doc-card-snippet"><%= h(snippet(document[:content])) %></p>
+  <p class="doc-card-meta"><%= h(document[:authorName]) %> · <%= format_relative(document[:createdAt]) %></p>
+</a>

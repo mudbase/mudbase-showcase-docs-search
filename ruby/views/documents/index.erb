@@ -1,0 +1,29 @@
+<div class="space-y">
+  <div>
+    <h1 class="page-title">Document library</h1>
+    <p class="page-subtitle">
+      Browse the knowledge base, or head to <a href="/ask">Ask AI</a> for a grounded answer synthesized from these documents.
+    </p>
+  </div>
+
+  <form action="/" method="get" class="search-form">
+    <input type="search" name="q" value="<%= h(@search_term) %>" placeholder="Search documents by title, content, or tag…" aria-label="Search documents">
+    <button type="submit" class="btn btn-sm">Search</button>
+    <% unless @search_term.to_s.empty? %>
+      <a href="/" class="btn btn-sm btn-outline">Clear</a>
+    <% end %>
+  </form>
+
+  <% if @documents.empty? %>
+    <div class="empty-state">
+      <p>No documents match your search.</p>
+      <p style="font-size:0.85rem;">Try a different keyword, or add the first document.</p>
+    </div>
+  <% else %>
+    <div class="card-grid">
+      <% @documents.each do |document| %>
+        <%= erb :"documents/_card", layout: false, locals: { document: document } %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

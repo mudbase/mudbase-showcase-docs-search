@@ -1,0 +1,31 @@
+<div class="space-y" style="max-width:42rem;">
+  <div>
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:1rem;">
+      <h1 class="page-title" style="margin-bottom:0;"><%= h(@document[:title]) %></h1>
+      <% if owner_of?(@document) %>
+        <div style="display:flex; gap:0.5rem; flex-shrink:0;">
+          <a href="/documents/<%= h(@document[:_id]) %>/edit" class="btn btn-sm btn-outline">Edit</a>
+          <form action="/documents/<%= h(@document[:_id]) %>/delete" method="post" onsubmit="return confirm('Delete this document? This cannot be undone.');">
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @tags.any? %>
+      <div class="tag-row" style="margin-top:0.5rem;">
+        <% @tags.each do |tag| %>
+          <span class="badge"><%= h(tag) %></span>
+        <% end %>
+      </div>
+    <% end %>
+
+    <p class="doc-card-meta" style="margin-top:0.5rem;">
+      <%= h(@document[:authorName]) %> · <%= format_datetime(@document[:createdAt]) %>
+    </p>
+  </div>
+
+  <hr class="separator">
+
+  <article class="doc-content"><%= h(@document[:content]) %></article>
+</div>

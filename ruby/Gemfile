@@ -1,0 +1,29 @@
+source "https://rubygems.org"
+
+ruby ">= 3.1"
+
+gem "sinatra", "~> 4.1"
+gem "sinatra-contrib", "~> 4.1"
+gem "rack-session", "~> 2.1"
+gem "puma", "~> 6.4"
+gem "dotenv", "~> 3.1"
+
+# The real Mudbase Ruby SDK (generated via OpenAPI Generator, gem name `mudbase_sdk`,
+# module `MudbaseSDK`). Published at https://github.com/mudbase/mudbase-sdk under the
+# `ruby/` subdirectory of that repo, NOT on the public RubyGems registry - Bundler's
+# `glob:` option resolves the gemspec inside that subdirectory directly from the git
+# checkout it makes under the hood, no sibling clone required. Same gem the sibling
+# `mudbase-showcase-social`/`mudbase-showcase-kanban`/`mudbase-showcase-ecommerce` ports use.
+# Used only for auth (login/register/anonymous/refresh) and the `documents`/`search_log`
+# collection CRUD - the Mudbase Function invocation and the Anthropic LLM call are plain
+# Net::HTTP requests (see lib/mudbase/function_client.rb, lib/llm/anthropic_client.rb), not
+# SDK-mediated, since neither needs the SDK's bearer-token auth flow (both use their own
+# API-key header scheme).
+gem "mudbase_sdk", git: "https://github.com/mudbase/mudbase-sdk.git", glob: "ruby/*.gemspec"
+
+# mudbase_sdk depends on typhoeus -> ethon -> ffi for its HTTP transport. ffi's native
+# extension is loosely pinned by the SDK's own gemspec and can fail to compile against a
+# newer Xcode/Clang toolchain than the gem version expects - pin it explicitly rather
+# than patching the vendored gemspec. See README "Known limitations" for the exact
+# error this avoids and what to do if it still occurs on your machine.
+gem "ffi", "~> 1.17"

@@ -1,0 +1,23 @@
+<div style="max-width:36rem;">
+  <h1 class="page-title"><%= h(@form_title) %></h1>
+
+  <form action="<%= h(@form_action) %>" method="post" class="stack" novalidate>
+    <div class="field">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" maxlength="200" value="<%= h(@document[:title]) %>" required>
+    </div>
+    <div class="field">
+      <label for="content">Content</label>
+      <textarea id="content" name="content" rows="14" maxlength="50000" required><%= h(@document[:content]) %></textarea>
+    </div>
+    <div class="field">
+      <label for="tags">Tags</label>
+      <input type="text" id="tags" name="tags" maxlength="500" value="<%= h(@document[:tags]) %>" placeholder="billing, invoices, refunds">
+      <span class="field-hint">Comma-separated. Used for search and Ask AI ranking.</span>
+    </div>
+    <div style="display:flex; gap:0.75rem;">
+      <button type="submit" class="btn"><%= h(@submit_label) %></button>
+      <a href="/" class="btn btn-outline">Cancel</a>
+    </div>
+  </form>
+</div>

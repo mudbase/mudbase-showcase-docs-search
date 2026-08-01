@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mudbase Docs Search</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">📚 Docs Search</a>
+      <nav class="nav">
+        <a href="/">Library</a>
+        <a href="/ask">Ask AI</a>
+        <% if @current_user %>
+          <a href="/documents/new">New document</a>
+          <span class="user-chip"><%= h(@current_user[:firstName]) %></span>
+          <form action="/logout" method="post" class="inline-form">
+            <button type="submit" class="link-button">Sign out</button>
+          </form>
+        <% else %>
+          <a href="/login">Sign in</a>
+          <a href="/register" class="btn btn-sm">Sign up</a>
+        <% end %>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <% if @flash_notice %>
+      <p class="flash flash-notice" role="status"><%= h(@flash_notice) %></p>
+    <% end %>
+    <% if @flash_error %>
+      <p class="flash flash-error" role="alert"><%= h(@flash_error) %></p>
+    <% end %>
+
+    <%= yield %>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Docs Search runs entirely on <a href="https://www.mudbase.dev" target="_blank" rel="noopener noreferrer">Mudbase</a> - auth, database, and a serverless Function for retrieval ranking. No client-side JavaScript.</p>
+    </div>
+  </footer>
+</body>
+</html>
