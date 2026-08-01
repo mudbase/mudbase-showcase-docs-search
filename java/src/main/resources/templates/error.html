@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Something went wrong — Docs Search</title>
+  <th:block th:replace="~{fragments/layout :: head-assets}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+
+<main class="container" style="max-width:520px">
+  <h1 class="page-title">Something went wrong</h1>
+  <p class="alert alert-error" th:text="${errorMessage}">An unexpected error occurred.</p>
+  <a th:href="@{/}" class="btn btn-outline">Back to the library</a>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

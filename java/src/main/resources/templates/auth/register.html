@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create account — Docs Search</title>
+  <th:block th:replace="~{fragments/layout :: head-assets}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+
+<main class="container" style="display:flex;justify-content:center">
+  <div style="width:100%;max-width:420px">
+    <h1 class="page-title" style="text-align:center">Create account</h1>
+
+    <p th:if="${authError}" class="alert alert-error" th:text="${authError}">Error</p>
+
+    <form method="post" th:action="@{/register}" th:object="${registerRequest}" novalidate>
+      <div class="field-row">
+        <div class="field">
+          <label for="reg-firstName">First name</label>
+          <input id="reg-firstName" type="text" th:field="*{firstName}" autocomplete="given-name" />
+          <p class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</p>
+        </div>
+        <div class="field">
+          <label for="reg-lastName">Last name</label>
+          <input id="reg-lastName" type="text" th:field="*{lastName}" autocomplete="family-name" />
+          <p class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="reg-email">Email</label>
+        <input id="reg-email" type="email" th:field="*{email}" autocomplete="email" />
+        <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</p>
+      </div>
+      <div class="field">
+        <label for="reg-password">Password</label>
+        <input id="reg-password" type="password" th:field="*{password}" autocomplete="new-password" />
+        <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</p>
+      </div>
+      <div class="checkbox-row">
+        <input id="reg-agree" type="checkbox" th:field="*{agreedToTerms}" />
+        <label for="reg-agree" style="font-weight:400;margin:0">I agree to the Terms of Service and Privacy Policy.</label>
+      </div>
+      <p class="error" th:if="${#fields.hasErrors('agreedToTerms')}" th:errors="*{agreedToTerms}">Error</p>
+      <button type="submit" class="btn btn-accent btn-block">Create account</button>
+    </form>
+
+    <p class="muted" style="text-align:center;margin-top:16px">
+      Already have an account? <a th:href="@{/login}">Sign in</a>
+    </p>
+  </div>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

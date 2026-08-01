@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${document.title} + ' — Docs Search'">Document — Docs Search</title>
+  <th:block th:replace="~{fragments/layout :: head-assets}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+
+<main class="container document-container">
+  <a th:href="@{/}" class="back-link">&larr; Back to library</a>
+
+  <div class="document-heading">
+    <h1 class="page-title" th:text="${document.title}">Title</h1>
+    <div th:if="${isOwner}" class="document-owner-controls">
+      <a class="btn btn-outline btn-sm" th:href="@{/documents/{id}/edit(id=${document.id})}">Edit</a>
+      <form method="post" th:action="@{/documents/{id}/delete(id=${document.id})}" class="inline-form" onsubmit="return confirm('Delete this document? This cannot be undone.');">
+        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+      </form>
+    </div>
+  </div>
+
+  <div th:if="${!document.tagList.isEmpty()}" class="tag-row">
+    <span th:each="tag : ${document.tagList}" class="tag-badge" th:text="${tag}">tag</span>
+  </div>
+
+  <p class="document-meta" th:text="${document.authorName} + ' · ' + ${document.formattedCreatedAt}">Author · date</p>
+
+  <hr class="divider" />
+
+  <article class="document-content" th:text="${document.content}">Content</article>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

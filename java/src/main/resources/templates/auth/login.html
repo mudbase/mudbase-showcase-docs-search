@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Sign in — Docs Search</title>
+  <th:block th:replace="~{fragments/layout :: head-assets}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+
+<main class="container" style="display:flex;justify-content:center">
+  <div style="width:100%;max-width:380px">
+    <h1 class="page-title" style="text-align:center">Sign in</h1>
+
+    <p th:if="${authError}" class="alert alert-error" th:text="${authError}">Error</p>
+
+    <form method="post" th:action="@{/login(redirect=${redirectTo})}" th:object="${loginRequest}" novalidate>
+      <div class="field">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" th:field="*{email}" autocomplete="email" />
+        <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</p>
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input id="login-password" type="password" th:field="*{password}" autocomplete="current-password" />
+        <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</p>
+      </div>
+      <button type="submit" class="btn btn-accent btn-block">Sign in</button>
+    </form>
+
+    <p class="muted" style="text-align:center;margin-top:16px">
+      New here? <a th:href="@{/register}">Create an account</a>
+    </p>
+  </div>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

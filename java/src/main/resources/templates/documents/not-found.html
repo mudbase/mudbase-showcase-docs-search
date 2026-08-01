@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Document not found — Docs Search</title>
+  <th:block th:replace="~{fragments/layout :: head-assets}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+
+<main class="container" style="max-width:520px;text-align:center">
+  <h1 class="page-title">Document not found</h1>
+  <p class="lede" th:text="${errorMessage}">This document isn't available.</p>
+  <a th:href="@{/}" class="btn btn-outline">Back to the library</a>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

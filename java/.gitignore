@@ -1,0 +1,8 @@
+target/
+.env
+.env.local
+*.class
+.idea/
+*.iml
+.vscode/
+HELP.md

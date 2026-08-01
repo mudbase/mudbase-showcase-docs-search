@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${isEdit} ? 'Edit document — Docs Search' : 'New document — Docs Search'">Document form</title>
+  <th:block th:replace="~{fragments/layout :: head-assets}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+
+<main class="container" style="max-width:640px">
+  <h1 class="page-title" th:text="${isEdit} ? 'Edit document' : 'New document'">Document form</h1>
+
+  <form
+    method="post"
+    th:action="${isEdit} ? @{/documents/{id}/edit(id=${documentId})} : @{/documents}"
+    th:object="${documentForm}"
+    novalidate>
+    <div class="field">
+      <label for="doc-title">Title</label>
+      <input id="doc-title" type="text" th:field="*{title}" autocomplete="off" />
+      <p class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Error</p>
+    </div>
+    <div class="field">
+      <label for="doc-content">Content</label>
+      <textarea id="doc-content" rows="14" th:field="*{content}"></textarea>
+      <p class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Error</p>
+    </div>
+    <div class="field">
+      <label for="doc-tags">Tags</label>
+      <input id="doc-tags" type="text" placeholder="billing, invoices, refunds" th:field="*{tags}" autocomplete="off" />
+      <p class="hint-label">Comma-separated. Used for search and Ask AI ranking.</p>
+      <p class="error" th:if="${#fields.hasErrors('tags')}" th:errors="*{tags}">Error</p>
+    </div>
+    <button type="submit" class="btn btn-accent" th:text="${isEdit} ? 'Save changes' : 'Publish document'">Save</button>
+  </form>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

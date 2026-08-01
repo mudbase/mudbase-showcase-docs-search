@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:fragment="head-assets">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" th:href="@{/css/app.css}" />
+  </th:block>
+</head>
+<body>
+  <header class="site-header" th:fragment="header">
+    <div class="container">
+      <a class="brand" th:href="@{/}">Docs Search</a>
+      <nav class="nav">
+        <a class="nav-link" th:href="@{/}">Library</a>
+        <a class="nav-link" th:href="@{/ask}">Ask AI</a>
+        <a th:if="${isSignedIn}" class="nav-link" th:href="@{/documents/new}">New document</a>
+        <form th:if="${isSignedIn}" method="post" th:action="@{/logout}" style="display:inline">
+          <button type="submit" class="btn btn-outline btn-sm">Sign out</button>
+        </form>
+        <a th:unless="${isSignedIn}" class="btn btn-sm" th:href="@{/login}">Sign in</a>
+      </nav>
+    </div>
+  </header>
+
+  <footer class="site-footer" th:fragment="footer">
+    <div class="container">
+      <p>Docs Search — a knowledge-base reference app served by <a href="https://www.mudbase.dev">Mudbase</a>, with Ask AI grounded by a real Mudbase Function plus a server-side Anthropic Claude call. Java/Spring Boot edition.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Docs Search — Document library</title>
+  <th:block th:replace="~{fragments/layout :: head-assets}"></th:block>
+</head>
+<body>
+<div th:replace="~{fragments/layout :: header}"></div>
+
+<main class="container">
+  <h1 class="page-title">Document library</h1>
+  <p class="lede">
+    Browse the knowledge base, or head to <a th:href="@{/ask}">Ask AI</a> for a grounded answer synthesized from
+    these documents.
+  </p>
+
+  <form method="get" th:action="@{/}" class="search-form" role="search">
+    <input
+      type="search"
+      name="q"
+      th:value="${searchTerm}"
+      placeholder="Search by title, content, or tags…"
+      aria-label="Search documents"
+      class="search-input"
+    />
+    <button type="submit" class="btn">Search</button>
+    <a th:if="${searchTerm != null and !searchTerm.isEmpty()}" th:href="@{/}" class="btn btn-outline">Clear</a>
+  </form>
+
+  <div th:if="${documents.isEmpty()}" class="empty-state">
+    <p th:if="${searchTerm != null and !searchTerm.isEmpty()}" th:text="'No documents matched &quot;' + ${searchTerm} + '&quot;.'">No documents matched.</p>
+    <p th:unless="${searchTerm != null and !searchTerm.isEmpty()}">No documents yet — be the first to add one.</p>
+  </div>
+
+  <div th:unless="${documents.isEmpty()}" class="document-grid">
+    <a th:each="document : ${documents}" th:href="@{/documents/{id}(id=${document.id})}" class="document-card">
+      <h3 class="document-card-title" th:text="${document.title}">Title</h3>
+      <p class="document-card-snippet" th:text="${document.snippet}">Snippet</p>
+      <div th:if="${!document.tagList.isEmpty()}" class="tag-row">
+        <span th:each="tag : ${document.tagList}" class="tag-badge" th:text="${tag}">tag</span>
+      </div>
+      <p class="document-card-meta" th:text="${document.authorName} + ' · ' + ${document.relativeCreatedAt}">Author · date</p>
+    </a>
+  </div>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>
