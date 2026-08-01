@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{if .Title}}{{.Title}} · {{end}}Mudbase Docs Search</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/">Mudbase<span class="brand-accent">Docs</span></a>
+      <nav class="nav">
+        <a href="/">Library</a>
+        <a href="/ask">Ask AI</a>
+        {{if .IsSignedIn}}
+          <a href="/documents/new" class="button button-sm">New document</a>
+          <span class="muted">{{.DisplayName}}</span>
+          <form method="post" action="/logout" class="inline-form">
+            <button type="submit" class="link-button">Sign out</button>
+          </form>
+        {{else}}
+          <a href="/login" class="button button-sm">Sign in</a>
+        {{end}}
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    {{if .FlashError}}<p class="flash flash-error" role="alert">{{.FlashError}}</p>{{end}}
+    {{if .FlashSuccess}}<p class="flash flash-success" role="status">{{.FlashSuccess}}</p>{{end}}
+    {{template "content" .}}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Every document, search log entry, and grounded Ask AI answer on this page is backed by a real Mudbase project, built in Go against the official Mudbase Go SDK - the LLM completion call is the one small server-side surface this showcase requires. See the README for why.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Wires window.confirm() onto any form carrying data-confirm - used by the document detail
+    // page's delete button. No framework, no build step: this is the only client-side JS this
+    // app ships, exactly the "server-rendered, no client JS framework" constraint the README
+    // documents.
+    document.addEventListener("submit", function (event) {
+      var form = event.target;
+      var message = form.getAttribute("data-confirm");
+      if (message && !window.confirm(message)) {
+        event.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>

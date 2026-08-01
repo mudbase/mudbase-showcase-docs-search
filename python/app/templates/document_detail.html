@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ document.title if document else "Document not found" }}{% endblock %}
+{% block content %}
+  {% if not document %}
+    <div class="empty-state">This document isn't available.</div>
+    <p style="margin-top:1rem;"><a href="/">← Back to the library</a></p>
+  {% else %}
+    <p style="margin-bottom:1rem;"><a href="/" class="muted text-sm">← Back to the library</a></p>
+
+    {% set doc_tags = document.tags | tags %}
+    <div class="doc-detail">
+      <div class="doc-detail-head">
+        <h1>{{ document.title }}</h1>
+        {% if is_owner %}
+          <div class="doc-detail-actions">
+            <a class="btn btn-outline btn-sm" href="/documents/{{ document.id }}/edit">Edit</a>
+            <form method="post" action="/documents/{{ document.id }}/delete" class="inline-form">
+              <button type="submit" class="btn btn-danger-outline btn-sm">Delete</button>
+            </form>
+          </div>
+        {% endif %}
+      </div>
+
+      {% if doc_tags %}
+        <div class="tag-row">
+          {% for tag in doc_tags %}
+            <span class="badge">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <p class="muted text-sm">{{ document.author_name }} · {{ document.created_at | date }}</p>
+
+      <hr class="divider" />
+
+      <article class="doc-content">{{ document.content }}</article>
+    </div>
+  {% endif %}
+{% endblock %}

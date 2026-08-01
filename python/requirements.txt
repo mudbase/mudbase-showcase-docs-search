@@ -1,0 +1,20 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+jinja2==3.1.5
+python-multipart==0.0.20
+itsdangerous==2.2.0
+httpx==0.28.1
+pydantic[email]>=2.11,<3.0.0
+email-validator==2.2.0
+pydantic-settings>=2.7.1,<3.0.0
+
+# Official Anthropic Python SDK — the one third-party LLM call in this app
+# (app/services/llm.py). See plan/build-plan.md "Ask AI architecture" for why
+# this call cannot live inside the Mudbase Function itself.
+anthropic==0.120.2
+
+# Real Mudbase Python SDK, generated via OpenAPI Generator. Published at
+# github.com/mudbase/mudbase-sdk (subdirectory `python/`), not on PyPI — pip
+# installs it directly from the git subdirectory. Same SDK version (2.0.0)
+# as the sibling mudbase-showcase-social/python and mudbase-showcase-kanban/python ports.
+mudbase-sdk @ git+https://github.com/mudbase/mudbase-sdk.git#subdirectory=python

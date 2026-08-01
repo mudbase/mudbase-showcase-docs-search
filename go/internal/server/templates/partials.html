@@ -1,0 +1,21 @@
+{{/* document_card renders one DocumentView. Used by home.html's library grid. */}}
+{{define "document_card"}}
+<article class="document-card">
+  <a class="document-card-link" href="/documents/{{.ID}}">
+    <h3 class="document-title">{{.Title}}</h3>
+    <p class="document-snippet">{{.Snippet}}</p>
+  </a>
+  {{if .Tags}}
+  <div class="tag-list">
+    {{range .Tags}}<span class="tag">{{.}}</span>{{end}}
+  </div>
+  {{end}}
+  <div class="document-meta">
+    <a class="avatar avatar-sm" href="/documents/{{.ID}}">{{.AuthorInitials}}</a>
+    <div class="document-meta-text">
+      <span class="document-author">{{.AuthorName}}{{if .IsOwner}} <span class="muted">(you)</span>{{end}}</span>
+      <span class="muted document-timestamp">{{.CreatedLabel}}</span>
+    </div>
+  </div>
+</article>
+{{end}}

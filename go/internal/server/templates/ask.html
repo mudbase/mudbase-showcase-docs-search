@@ -1,0 +1,56 @@
+{{define "content"}}
+<div class="ask-layout">
+  <div class="ask-main">
+    <div class="page-head">
+      <h1>Ask AI</h1>
+      <p class="muted">Ask a question in plain English and get a grounded answer synthesized from documents in the library, with citations.</p>
+    </div>
+
+    <form method="post" action="/ask" class="stacked ask-form">
+      <div class="field">
+        <label for="question">Question</label>
+        <textarea id="question" name="question" rows="3" maxlength="2000" placeholder="e.g. How do I reset my password?" required>{{.Question}}</textarea>
+      </div>
+      <button type="submit" class="button">Ask AI</button>
+      {{if .ErrorMessage}}<p role="alert" class="flash flash-error">{{.ErrorMessage}}</p>{{end}}
+    </form>
+
+    {{if .NoMatch}}
+    <p class="muted ask-empty-note">No documents in the library matched that question closely enough to answer from. Try rephrasing, or add a document that covers it.</p>
+    {{end}}
+
+    {{if .Answer}}
+    <section class="answer-card">
+      <h2>Answer</h2>
+      <p class="answer-text">{{.Answer}}</p>
+      {{if .Citations}}
+      <div class="citations">
+        <p class="citations-label">Sources</p>
+        <div class="citation-list">
+          {{range .Citations}}
+          <a class="citation-badge" href="/documents/{{.DocumentID}}">{{.Title}}</a>
+          {{end}}
+        </div>
+      </div>
+      {{end}}
+    </section>
+    {{end}}
+  </div>
+
+  <aside class="ask-sidebar">
+    <p class="sidebar-label">Recent searches</p>
+    {{if .RecentSearches}}
+    <ul class="recent-search-list">
+      {{range .RecentSearches}}
+      <li class="recent-search-item">
+        <span class="recent-search-query">{{.QueryText}}</span>
+        <span class="muted recent-search-meta">{{.ResultCount}} {{if eq .ResultCount 1}}source{{else}}sources{{end}} · {{.RelativeLabel}}</span>
+      </li>
+      {{end}}
+    </ul>
+    {{else}}
+    <p class="muted">No searches yet.</p>
+    {{end}}
+  </aside>
+</div>
+{{end}}

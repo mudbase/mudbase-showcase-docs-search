@@ -1,0 +1,17 @@
+{% set doc_tags = document.tags | tags %}
+<a class="doc-card" href="/documents/{{ document.id }}">
+  <div class="card doc-card-inner">
+    <div class="card-body">
+      <h3 class="doc-card-title">{{ document.title }}</h3>
+      {% if doc_tags %}
+        <div class="tag-row">
+          {% for tag in doc_tags %}
+            <span class="badge">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <p class="doc-card-snippet">{{ document.content | snippet }}</p>
+      <p class="doc-card-meta">{{ document.author_name }} · {{ document.created_at | relative_time }}</p>
+    </div>
+  </div>
+</a>

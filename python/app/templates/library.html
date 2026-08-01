@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Library{% endblock %}
+{% block content %}
+  <div class="section-head" style="flex-direction: column; align-items: flex-start; gap: 0.35rem;">
+    <h1>Document library</h1>
+    <p class="muted text-sm">
+      Browse the knowledge base, or head to <a href="/ask">Ask AI</a> for a grounded answer
+      synthesized from these documents. Every document here is a real Mudbase collection record,
+      through the real Mudbase Python SDK — no hand-rolled backend.
+    </p>
+  </div>
+
+  <form method="get" action="/" class="search-form">
+    <input
+      type="search"
+      name="q"
+      value="{{ query }}"
+      placeholder="Search documents by title, content, or tag…"
+      aria-label="Search documents"
+    />
+    <button type="submit" class="btn btn-outline btn-sm">Search</button>
+  </form>
+
+  {% if load_error %}
+    <p class="error-state">{{ load_error }}</p>
+  {% elif not documents %}
+    <div class="empty-state">
+      {% if query %}
+        No documents match your search.
+      {% else %}
+        No documents in the library yet.
+      {% endif %}
+      {% if current_user and current_user.is_customer %}
+        <a href="/documents/new">Add the first one.</a>
+      {% endif %}
+    </div>
+  {% else %}
+    <div class="doc-grid">
+      {% for document in documents %}
+        {% include "partials/document_card.html" %}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

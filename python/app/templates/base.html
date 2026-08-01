@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Docs Search{% endblock %} · Mudbase Showcase (Python)</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="brand" href="/">Docs Search</a>
+      <nav class="nav">
+        <a class="nav-link" href="/">Library</a>
+        <a class="nav-link" href="/ask">Ask AI</a>
+        {% if current_user %}
+          {% if current_user.is_customer %}
+            <a class="btn btn-outline btn-sm" href="/documents/new">+ New document</a>
+          {% endif %}
+          <form method="post" action="/logout" class="inline-form">
+            <button type="submit" class="btn btn-outline btn-sm">Sign out</button>
+          </form>
+        {% else %}
+          <a class="nav-link" href="/login">Sign in</a>
+          <a class="btn btn-primary btn-sm" href="/register">Sign up</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  {% if flash %}
+    <div class="container">
+      <div class="flash flash-{{ flash.category }}" role="status">{{ flash.message }}</div>
+    </div>
+  {% endif %}
+
+  <main class="site-main">
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      Built on <a href="https://www.mudbase.dev" target="_blank" rel="noreferrer">Mudbase</a> — Python / FastAPI
+      reimplementation of the reference docs-search knowledge base.
+    </div>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

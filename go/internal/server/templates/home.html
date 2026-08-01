@@ -1,0 +1,26 @@
+{{define "content"}}
+<div class="page-head">
+  <h1>Document library</h1>
+  <p class="muted">Browse the knowledge base, or head to <a href="/ask">Ask AI</a> for a grounded answer synthesized from these documents.</p>
+</div>
+
+<form method="get" action="/" class="search-form" role="search">
+  <input type="search" name="q" value="{{.Query}}" placeholder="Search title, content, or tags…" aria-label="Search documents">
+  <button type="submit" class="button button-outline">Search</button>
+  {{if .Query}}<a href="/" class="link-button">Clear</a>{{end}}
+</form>
+
+{{if .Empty}}
+<div class="empty-state">
+  {{if .Query}}
+  <p>No documents matched "{{.Query}}". Try a different search term.</p>
+  {{else}}
+  <p>No documents in the library yet.{{if .IsSignedIn}} <a href="/documents/new">Add the first one</a>.{{end}}</p>
+  {{end}}
+</div>
+{{else}}
+<div class="document-grid">
+  {{range .Documents}}{{template "document_card" .}}{{end}}
+</div>
+{{end}}
+{{end}}

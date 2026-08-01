@@ -1,0 +1,25 @@
+{{define "content"}}
+<div class="document-detail-head">
+  <div class="document-detail-head-row">
+    <h1>{{.Document.Title}}</h1>
+    {{if .Document.IsOwner}}
+    <div class="document-detail-actions">
+      <a class="button button-outline button-sm" href="/documents/{{.Document.ID}}/edit">Edit</a>
+      <form method="post" action="/documents/{{.Document.ID}}/delete" class="inline-form" data-confirm="Delete this document? This cannot be undone.">
+        <button type="submit" class="button button-destructive button-sm">Delete</button>
+      </form>
+    </div>
+    {{end}}
+  </div>
+  {{if .Document.Tags}}
+  <div class="tag-list">
+    {{range .Document.Tags}}<span class="tag">{{.}}</span>{{end}}
+  </div>
+  {{end}}
+  <p class="muted">{{.Document.AuthorName}} · {{.Document.CreatedLabel}}</p>
+</div>
+
+<hr class="divider">
+
+<article class="document-body">{{.Document.Content}}</article>
+{{end}}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Verify your email{% endblock %}
+{% block content %}
+  <div class="auth-shell">
+    <div class="card">
+      <div class="card-body" style="text-align:center;">
+        <h1>{{ "Email verified" if success else "Verification failed" }}</h1>
+        <p class="muted text-sm" style="margin-bottom: 1.5rem;">{{ message }}</p>
+        {% if success %}
+          <a class="btn btn-primary btn-block" href="/login">Sign in</a>
+        {% else %}
+          <a class="btn btn-outline btn-block" href="/register">Back to registration</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

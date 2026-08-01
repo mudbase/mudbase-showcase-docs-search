@@ -1,0 +1,21 @@
+{{define "content"}}
+<div class="center" style="max-width:24rem;margin:0 auto">
+  <div class="center" style="margin-bottom:1.5rem">
+    <h1>Sign in</h1>
+    <p class="muted">Welcome back to the Mudbase Docs Search knowledge base.</p>
+  </div>
+  <form method="post" action="/login" class="stacked">
+    {{if .Redirect}}<input type="hidden" name="redirect" value="{{.Redirect}}">{{end}}
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="email" required>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="button">Sign in</button>
+  </form>
+  <p class="muted center" style="margin-top:1rem">Don't have an account? <a href="/register">Create one</a></p>
+</div>
+{{end}}

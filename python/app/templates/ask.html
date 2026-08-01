@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Ask AI{% endblock %}
+{% block content %}
+  <div class="section-head" style="flex-direction: column; align-items: flex-start; gap: 0.35rem;">
+    <h1>Ask AI</h1>
+    <p class="muted text-sm">
+      Ask a question in plain language. The app finds the most relevant documents in the library,
+      hands them to a real deployed Mudbase Function for retrieval ranking, then asks an LLM to
+      answer strictly from their content — with citations back to the source documents.
+    </p>
+  </div>
+
+  <div class="card ask-card">
+    <div class="card-body">
+      <form method="post" action="/ask" novalidate>
+        <div class="form-group" style="margin-bottom: 0.75rem;">
+          <label for="question">Ask a question</label>
+          <textarea
+            id="question"
+            name="question"
+            rows="3"
+            maxlength="2000"
+            placeholder="e.g. How do I reset my password?"
+            aria-label="Question for Ask AI"
+            required
+          >{{ question }}</textarea>
+          {% if errors.question %}<p class="field-error">{{ errors.question }}</p>{% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Ask AI</button>
+      </form>
+    </div>
+  </div>
+
+  {% if no_match %}
+    <p class="muted text-sm" style="margin-top: 1rem;">
+      No documents in the library matched that question closely enough to answer from. Try
+      rephrasing, or add a document that covers it.
+    </p>
+  {% endif %}
+
+  {% if ask_error %}
+    <div class="form-error" role="alert" style="margin-top: 1rem;">{{ ask_error }}</div>
+  {% endif %}
+
+  {% if answer %}
+    <div class="card ask-answer-card">
+      <div class="card-body">
+        <h2 style="margin-bottom: 0.75rem;">Answer</h2>
+        <p class="ask-answer-text">{{ answer }}</p>
+        {% if citations %}
+          <div class="ask-sources">
+            <p class="muted text-sm" style="text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.75rem;">Sources</p>
+            <div class="tag-row">
+              {% for citation in citations %}
+                <a class="badge badge-link" href="/documents/{{ citation.document_id }}">{{ citation.title }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if recent_searches %}
+    <div class="recent-searches">
+      <p class="muted text-sm" style="text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.75rem;">Recent searches</p>
+      <ul class="recent-searches-list">
+        {% for entry in recent_searches %}
+          <li>
+            <span class="recent-search-query">{{ entry.query_text }}</span>
+            <span class="muted text-sm">
+              {{ entry.result_count }} {{ "source" if entry.result_count == 1 else "sources" }} · {{ entry.created_at | relative_time }}
+            </span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endblock %}

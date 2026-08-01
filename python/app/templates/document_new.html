@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}New document{% endblock %}
+{% block content %}
+  <div class="form-shell">
+    <div class="card">
+      <div class="card-body">
+        <h1>New document</h1>
+        {% if form_error %}<div class="form-error" role="alert">{{ form_error }}</div>{% endif %}
+        <form method="post" action="/documents" novalidate>
+          {% include "partials/document_form_fields.html" %}
+          <button type="submit" class="btn btn-primary">Publish document</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

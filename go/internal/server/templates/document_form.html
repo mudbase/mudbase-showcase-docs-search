@@ -1,0 +1,21 @@
+{{define "content"}}
+<div style="max-width:40rem;margin:0 auto">
+  <h1>{{if eq .Mode "edit"}}Edit document{{else}}New document{{end}}</h1>
+  <form method="post" action="{{if eq .Mode "edit"}}/documents/{{.DocumentID}}/edit{{else}}/documents{{end}}" class="stacked">
+    <div class="field">
+      <label for="title">Title</label>
+      <input id="title" name="title" value="{{.Title}}" maxlength="200" required>
+    </div>
+    <div class="field">
+      <label for="content">Content</label>
+      <textarea id="content" name="content" rows="14" maxlength="50000" required>{{.Content}}</textarea>
+    </div>
+    <div class="field">
+      <label for="tags">Tags</label>
+      <input id="tags" name="tags" value="{{.Tags}}" maxlength="500" placeholder="billing, invoices, refunds">
+      <p class="field-hint">Comma-separated. Used for search and Ask AI ranking.</p>
+    </div>
+    <button type="submit" class="button">{{if eq .Mode "edit"}}Save changes{{else}}Publish document{{end}}</button>
+  </form>
+</div>
+{{end}}
