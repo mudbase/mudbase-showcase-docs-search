@@ -1,0 +1,46 @@
+@page
+@model MudbaseShowcase.DocsSearch.Pages.LoginModel
+@{
+    ViewData["Title"] = "Sign in";
+}
+
+<div class="d-flex justify-content-center">
+    <div class="w-100" style="max-width: 380px;">
+        <div class="text-center mb-4">
+            <h1 class="h4 fw-semibold">Sign in</h1>
+            <p class="text-muted small">Mudbase Docs Search — a knowledge base with grounded Ask AI, zero custom backend.</p>
+        </div>
+
+        @if (Model.ErrorMessage is not null)
+        {
+            <p class="text-danger small" role="alert">@Model.ErrorMessage</p>
+        }
+
+        <form method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="mb-3">
+                <label asp-for="Input.Email" class="form-label">Email</label>
+                <input asp-for="Input.Email" type="email" autocomplete="email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Password" class="form-label">Password</label>
+                <input asp-for="Input.Password" type="password" autocomplete="current-password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger small"></span>
+            </div>
+            <button type="submit" class="btn btn-brand w-100">Sign in</button>
+        </form>
+
+        <hr class="my-4" />
+
+        <p class="text-center small text-muted mb-2">Or sign in as the demo account</p>
+        <form method="post" asp-page-handler="QuickLogin">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <button type="submit" class="btn btn-outline-secondary w-100 btn-sm">Sign in as demo member</button>
+        </form>
+
+        <p class="text-center small text-muted mt-3">
+            New here? <a asp-page="/Register" asp-route-ReturnUrl="@Model.ReturnUrl">Create an account</a>
+        </p>
+    </div>
+</div>

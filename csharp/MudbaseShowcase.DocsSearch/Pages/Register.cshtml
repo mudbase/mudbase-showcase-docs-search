@@ -1,0 +1,63 @@
+@page
+@model MudbaseShowcase.DocsSearch.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Create your account";
+}
+
+<div class="d-flex justify-content-center">
+    <div class="w-100" style="max-width: 380px;">
+        <div class="text-center mb-4">
+            <h1 class="h4 fw-semibold">Create your account</h1>
+            <p class="text-muted small">Publish documents and ask AI questions on Mudbase Docs Search.</p>
+        </div>
+
+        @if (Model.SuccessMessage is not null)
+        {
+            <div class="alert alert-success small" role="alert">@Model.SuccessMessage</div>
+            <a class="btn btn-brand w-100" asp-page="/Login" asp-route-ReturnUrl="@Model.ReturnUrl">Go to sign in</a>
+        }
+        else
+        {
+            @if (Model.ErrorMessage is not null)
+            {
+                <p class="text-danger small" role="alert">@Model.ErrorMessage</p>
+            }
+
+            <form method="post">
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div class="row g-2 mb-3">
+                    <div class="col">
+                        <label asp-for="Input.FirstName" class="form-label">First name</label>
+                        <input asp-for="Input.FirstName" autocomplete="given-name" class="form-control" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger small"></span>
+                    </div>
+                    <div class="col">
+                        <label asp-for="Input.LastName" class="form-label">Last name</label>
+                        <input asp-for="Input.LastName" autocomplete="family-name" class="form-control" />
+                        <span asp-validation-for="Input.LastName" class="text-danger small"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <input asp-for="Input.Email" type="email" autocomplete="email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.Password" class="form-label">Password</label>
+                    <input asp-for="Input.Password" type="password" autocomplete="new-password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                </div>
+                <div class="mb-3 form-check">
+                    <input asp-for="Input.AgreedToTerms" class="form-check-input" />
+                    <label asp-for="Input.AgreedToTerms" class="form-check-label small">I agree to the Terms of Service and Privacy Policy.</label>
+                    <div><span asp-validation-for="Input.AgreedToTerms" class="text-danger small"></span></div>
+                </div>
+                <button type="submit" class="btn btn-brand w-100">Create account</button>
+            </form>
+
+            <p class="text-center small text-muted mt-3">
+                Already have an account? <a asp-page="/Login" asp-route-ReturnUrl="@Model.ReturnUrl">Sign in</a>
+            </p>
+        }
+    </div>
+</div>

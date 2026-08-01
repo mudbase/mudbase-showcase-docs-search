@@ -1,0 +1,23 @@
+@model MudbaseShowcase.DocsSearch.Models.DocumentRecord
+@{
+    IReadOnlyList<string> tags = MudbaseShowcase.DocsSearch.Services.DisplayHelpers.ParseTags(Model.Tags);
+}
+
+<a asp-page="/Documents/Detail" asp-route-id="@Model.Id" class="text-decoration-none text-body">
+    <div class="card h-100">
+        <div class="card-body d-flex flex-column gap-2">
+            <h2 class="h6 mb-0 docs-clamp-2">@Model.Title</h2>
+            @if (tags.Count > 0)
+            {
+                <div class="d-flex flex-wrap gap-1">
+                    @foreach (string tag in tags)
+                    {
+                        <span class="badge text-bg-secondary">@tag</span>
+                    }
+                </div>
+            }
+            <p class="small text-muted mb-0 flex-grow-1">@MudbaseShowcase.DocsSearch.Services.DisplayHelpers.Snippet(Model.Content)</p>
+            <p class="small text-muted mb-0">@Model.AuthorName &middot; @MudbaseShowcase.DocsSearch.Services.DisplayHelpers.FormatRelativeTime(Model.CreatedAt)</p>
+        </div>
+    </div>
+</a>

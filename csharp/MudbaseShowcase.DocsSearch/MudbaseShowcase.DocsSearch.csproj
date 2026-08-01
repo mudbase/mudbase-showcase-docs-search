@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <!--
+      net10.0, not net8.0: this build machine only has the .NET 10 SDK/runtime installed
+      (`dotnet list-runtimes` shows Microsoft.NETCore.App / Microsoft.AspNetCore.App 10.0.10
+      only, no 8.0.x) - reconfirmed for this port. A net8.0-targeted app builds fine here (NuGet
+      restores the 8.0 reference packs for compilation) but fails to *run* - `dotnet run`/the
+      apphost roll-forward policy does not cross major versions by default, so it exits
+      immediately with "You must install or update .NET to run this application" (this exact
+      failure mode is already live-verified against the sibling mudbase-showcase-social/csharp
+      port, which targets net8.0, and documented again in mudbase-showcase-kanban/csharp's
+      identical csproj comment). Targeting net10.0 directly avoids that entirely. The referenced
+      Mudbase.Sdk project itself still targets net8.0 - a net10.0 app can consume a net8.0 library
+      without issue.
+    -->
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>MudbaseShowcase.DocsSearch</RootNamespace>
+    <AssemblyName>MudbaseShowcase.DocsSearch</AssemblyName>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      Real Mudbase C# SDK, published at https://github.com/mudbase/mudbase-sdk (subdirectory csharp/),
+      NOT on NuGet. This path assumes a sibling-clone layout:
+
+        <parent>/
+          mudbase-showcase-docs-search/   <- this repo
+          mudbase-sdk/                    <- git clone https://github.com/mudbase/mudbase-sdk.git
+
+      See README.md "Setup" for the exact clone command.
+    -->
+    <ProjectReference Include="../../../mudbase-sdk/csharp/src/Mudbase.Sdk/Mudbase.Sdk.csproj" />
+  </ItemGroup>
+
+</Project>

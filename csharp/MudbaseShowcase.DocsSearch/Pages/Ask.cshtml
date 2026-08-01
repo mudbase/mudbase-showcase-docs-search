@@ -1,0 +1,75 @@
+@page
+@model MudbaseShowcase.DocsSearch.Pages.AskModel
+@{
+    ViewData["Title"] = "Ask AI";
+}
+
+<div class="mx-auto" style="max-width: 640px;">
+    <div class="mb-4">
+        <h1 class="h4 fw-semibold mb-1">Ask AI</h1>
+        <p class="text-muted small mb-0">
+            Ask a question in plain language. The app finds the most relevant documents in the library, then asks an
+            LLM to answer strictly from their content — with citations back to the source documents.
+        </p>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header"><h2 class="h6 mb-0">Ask a question</h2></div>
+        <div class="card-body">
+            <form method="post" asp-page-handler="Ask">
+                <div class="mb-3">
+                    <textarea asp-for="Question" rows="3" class="form-control" placeholder="e.g. How do I reset my password?" aria-label="Question for Ask AI"></textarea>
+                </div>
+                <button type="submit" class="btn btn-brand">Ask AI</button>
+            </form>
+            @if (Model.AskError is not null)
+            {
+                <p class="text-danger small mt-2 mb-0" role="alert">@Model.AskError</p>
+            }
+        </div>
+    </div>
+
+    @if (Model.NoMatch)
+    {
+        <p class="text-muted small">
+            No documents in the library matched that question closely enough to answer from. Try rephrasing, or add a
+            document that covers it.
+        </p>
+    }
+
+    @if (Model.Answer is not null)
+    {
+        <div class="card mb-3">
+            <div class="card-header"><h2 class="h6 mb-0">Answer</h2></div>
+            <div class="card-body">
+                <p class="docs-content mb-3">@Model.Answer</p>
+                @if (Model.Citations.Count > 0)
+                {
+                    <p class="text-uppercase text-muted small fw-semibold mb-2 docs-eyebrow">Sources</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach (MudbaseShowcase.DocsSearch.Models.AskCitationViewModel citation in Model.Citations)
+                        {
+                            <a asp-page="/Documents/Detail" asp-route-id="@citation.DocumentId" class="badge text-bg-light border text-decoration-none">@citation.Title &nearr;</a>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if (Model.RecentSearches.Count > 0)
+    {
+        <div>
+            <p class="text-uppercase text-muted small fw-semibold mb-2 docs-eyebrow">Recent searches</p>
+            <ul class="list-unstyled d-flex flex-column gap-2">
+                @foreach (MudbaseShowcase.DocsSearch.Models.SearchLogRecord entry in Model.RecentSearches)
+                {
+                    <li class="d-flex justify-content-between gap-3 small border-bottom pb-2">
+                        <span class="text-truncate">@entry.QueryText</span>
+                        <span class="text-muted flex-shrink-0">@entry.ResultCount @(entry.ResultCount == 1 ? "source" : "sources") &middot; @MudbaseShowcase.DocsSearch.Services.DisplayHelpers.FormatRelativeTime(entry.CreatedAt)</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>

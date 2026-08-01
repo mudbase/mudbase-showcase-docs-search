@@ -1,0 +1,55 @@
+@page "{id}"
+@model MudbaseShowcase.DocsSearch.Pages.Documents.DetailModel
+@{
+    ViewData["Title"] = Model.Document?.Title ?? "Document";
+}
+
+@if (Model.FlashError is not null)
+{
+    <p class="text-danger small" role="alert">@Model.FlashError</p>
+}
+
+@if (Model.LoadError is not null)
+{
+    <p class="text-danger">@Model.LoadError</p>
+}
+else if (Model.IsNotFound || Model.Document is null)
+{
+    <p class="text-danger text-center py-5">This document isn't available.</p>
+}
+else
+{
+    MudbaseShowcase.DocsSearch.Models.DocumentRecord document = Model.Document;
+    IReadOnlyList<string> tags = MudbaseShowcase.DocsSearch.Services.DisplayHelpers.ParseTags(document.Tags);
+
+    <div class="mx-auto" style="max-width: 720px;">
+        <div class="d-flex align-items-start justify-content-between gap-3 mb-2">
+            <h1 class="h4 fw-semibold mb-0">@document.Title</h1>
+            @if (Model.IsOwner)
+            {
+                <div class="d-flex gap-2 flex-shrink-0">
+                    <a class="btn btn-outline-secondary btn-sm" asp-page="/Documents/Edit" asp-route-id="@document.Id">Edit</a>
+                    <form method="post" asp-page-handler="Delete" onsubmit="return confirm('Delete this document? This cannot be undone.');">
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+            }
+        </div>
+
+        @if (tags.Count > 0)
+        {
+            <div class="d-flex flex-wrap gap-1 mb-2">
+                @foreach (string tag in tags)
+                {
+                    <span class="badge text-bg-secondary">@tag</span>
+                }
+            </div>
+        }
+
+        <p class="text-muted small mb-3">@document.AuthorName &middot; @MudbaseShowcase.DocsSearch.Services.DisplayHelpers.FormatDateTime(document.CreatedAt)</p>
+
+        <hr />
+
+        <article class="docs-content">@document.Content</article>
+    </div>
+}

@@ -1,0 +1,50 @@
+@page "{id}"
+@model MudbaseShowcase.DocsSearch.Pages.Documents.EditModel
+@{
+    ViewData["Title"] = "Edit document";
+}
+
+@if (Model.LoadError is not null)
+{
+    <p class="text-danger">@Model.LoadError</p>
+}
+else if (Model.IsNotFound)
+{
+    <p class="text-danger text-center py-5">This document isn't available.</p>
+}
+else if (!Model.IsOwner)
+{
+    <div class="text-center py-5">
+        <p class="text-muted small mb-0">You can only edit documents you authored.</p>
+    </div>
+}
+else
+{
+    <div class="card mx-auto" style="max-width: 640px;">
+        <div class="card-header"><h1 class="h5 mb-0">Edit document</h1></div>
+        <div class="card-body">
+            @if (Model.ErrorMessage is not null)
+            {
+                <p class="text-danger small" role="alert">@Model.ErrorMessage</p>
+            }
+            <form method="post">
+                <div class="mb-3">
+                    <label asp-for="Input.Title" class="form-label">Title</label>
+                    <input asp-for="Input.Title" class="form-control" />
+                    <span asp-validation-for="Input.Title" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.Content" class="form-label">Content</label>
+                    <textarea asp-for="Input.Content" rows="14" class="form-control"></textarea>
+                    <span asp-validation-for="Input.Content" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.Tags" class="form-label">Tags</label>
+                    <input asp-for="Input.Tags" class="form-control" />
+                    <span asp-validation-for="Input.Tags" class="text-danger small"></span>
+                </div>
+                <button type="submit" class="btn btn-brand">Save changes</button>
+            </form>
+        </div>
+    </div>
+}
