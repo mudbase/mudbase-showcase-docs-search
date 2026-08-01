@@ -1,14 +1,23 @@
 # Mudbase Showcase — Docs Search
 
-An AI-powered knowledge-base search app built **entirely on [Mudbase](https://www.mudbase.dev)** —
-auth, database, and serverless Functions — with **zero custom backend**. The same app,
-reimplemented once per official Mudbase SDK, so every supported language has a real, runnable
-reference app rather than a toy snippet.
+An AI-powered knowledge-base search app built almost entirely on **[Mudbase](https://www.mudbase.dev)**
+— auth, database, and a serverless Function for retrieval ranking. The same app, reimplemented
+once per official Mudbase SDK, so every supported language has a real, runnable reference app
+rather than a toy snippet.
 
 Every version talks to the same Mudbase project shape (see `web/plan/build-plan.md` for the
 collection/permission schema) and demonstrates the same feature set: a document knowledge base,
 keyword search, and an "Ask AI" feature that retrieves the most relevant documents and asks an LLM
-to answer grounded in them — via a Mudbase Function, so the LLM API key never touches the client.
+to answer grounded in them.
+
+The LLM API key never touches the client, but it does **not** live inside the Function itself —
+Mudbase Functions run in a sandbox with zero network access (verified against the platform's own
+`isolated-vm` runner source), so a Function cannot make the outbound call to an LLM provider no
+matter what env var it holds. Each port's Function does the retrieval-ranking work the sandbox
+*can* do; the LLM completion call happens in the smallest possible server-side surface the host
+language provides (e.g. a single Next.js Route Handler for the web port), authorized by a
+Mudbase API key scoped only to invoking that Function. See `web/plan/build-plan.md` "Ask AI
+architecture" for the full reasoning, source citations, and live verification.
 
 ## Versions in this repo
 
@@ -46,11 +55,13 @@ some-folder/
 - **documents** — `title`, `content`, `tags?`, `authorId`, `authorName`
 - **search_log** — `queryText`, `userId?`, `userName?`, `resultCount`
 
-Retrieval is simple keyword/substring matching across `title`+`content` (no vector DB dependency,
-to keep this achievable entirely on Mudbase's own primitives). The "Ask AI" call runs inside a
-Mudbase Function — you supply your own LLM API key (OpenAI/Anthropic/etc.) as a Function
-environment variable, which Mudbase masks in every API response regardless of role. This also
-demonstrates that masking guarantee directly.
+Retrieval is simple keyword/substring matching across `title`+`content`+`tags` (no vector DB
+dependency, to keep this achievable entirely on Mudbase's own primitives). A real, deployed
+Mudbase Function re-ranks the shortlisted candidates and assembles a grounded context block; the
+actual LLM completion call (Anthropic Claude by default — you supply your own API key) happens in
+each port's smallest possible server-side surface, since the Function's own sandbox has no
+network access to call an LLM provider directly — see `web/plan/build-plan.md` "Ask AI
+architecture" for the full reasoning and source citations.
 
 ## License
 
