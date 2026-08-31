@@ -7,11 +7,11 @@ import "./globals.css"
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Mudbase Showcase — Docs Search",
-    default: "Mudbase Showcase — Docs Search",
+    template: "%s | Mudbase Showcase - Docs Search",
+    default: "Mudbase Showcase - Docs Search",
   },
   description:
-    "An AI-powered knowledge-base search platform built entirely on Mudbase — auth, database, and a serverless Function for grounded Q&A, with zero custom backend beyond the minimal proxy the platform's own RBAC requires.",
+    "An AI-powered knowledge-base search platform built entirely on Mudbase - auth, database, and a serverless Function for grounded Q&A, with zero custom backend beyond the minimal proxy the platform's own RBAC requires.",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
                 <a href="https://www.mudbase.dev" className="underline underline-offset-4" target="_blank" rel="noreferrer">
                   Mudbase
                 </a>{" "}
-                — collections, auth, and a serverless Function for retrieval ranking.
+                - collections, auth, and a serverless Function for retrieval ranking.
               </footer>
             </div>
           </MudbaseProvider>

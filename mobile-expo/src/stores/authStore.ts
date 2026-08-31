@@ -19,10 +19,10 @@ function messageFrom(err: unknown, fallback: string): string {
 }
 
 /**
- * A plain in-memory zustand store, not persisted via MMKV/AsyncStorage — the only durable state is
+ * A plain in-memory zustand store, not persisted via MMKV/AsyncStorage - the only durable state is
  * the token pair in SecureStore (mudbaseClient owns that). Mirrors
  * web/src/lib/mudbase-provider.tsx's bootstrap: every cold start (and every logout) ends with
- * *some* session established — a real signed-in author if valid tokens were restored, otherwise a
+ * *some* session established - a real signed-in author if valid tokens were restored, otherwise a
  * fresh anonymous session so the library's public-read permission resolves without forcing a
  * login screen. `isRealUser()` (lib/rbac.ts) is what distinguishes the two for UI gating.
  */
@@ -41,7 +41,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         set({ user, isInitializing: false });
         return;
       }
-      // Restored tokens were invalid/expired past refresh — fall through to a fresh anonymous
+      // Restored tokens were invalid/expired past refresh - fall through to a fresh anonymous
       // session below, same as a first-ever launch.
     }
     try {

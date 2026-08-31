@@ -5,7 +5,7 @@ import { documentRecordSchema, type DocumentRecord } from "@/api/schemas";
 import { DOCUMENTS_COLLECTION_ID } from "@/config/env";
 import { useAuth } from "@/hooks/useAuth";
 
-/** The full document library, newest first — mirrors web/src/app/page.tsx's useDocuments call.
+/** The full document library, newest first - mirrors web/src/app/page.tsx's useDocuments call.
  * Search is client-side (see lib/retrieval.ts), so this always fetches the whole (bounded) set. */
 export function useDocumentsList() {
   return useQuery({
@@ -36,7 +36,7 @@ export interface CreateDocumentInput {
 }
 
 /** Signed-in authors: publishes a new document, denormalizing the author's name onto the row
- * (this collection has no join to a users table — see plan/build-plan.md). */
+ * (this collection has no join to a users table - see plan/build-plan.md). */
 export function useCreateDocument() {
   const { user } = useAuth();
   const queryClient = useQueryClient();

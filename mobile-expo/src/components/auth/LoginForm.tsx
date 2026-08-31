@@ -14,7 +14,7 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-// Provisioned per the task's instructions — do not create additional demo accounts. Full CRUD on
+// Provisioned per the task's instructions - do not create additional demo accounts. Full CRUD on
 // both collections comes from Mudbase's single default "customer" role (see plan/build-plan.md).
 const DEMO_ACCOUNT = { email: "docs.member.demo@gmail.com", password: "DemoTest123!" } as const;
 

@@ -11,7 +11,7 @@ export default function AskScreen(): React.JSX.Element {
       <ScrollView contentContainerClassName="gap-6 px-4 pb-8" keyboardShouldPersistTaps="handled">
         <Text className="text-sm text-muted-foreground">
           Ask a question in plain language. The app finds the most relevant documents in the
-          library, then asks an LLM to answer strictly from their content — with citations back to
+          library, then asks an LLM to answer strictly from their content - with citations back to
           the source documents.
         </Text>
         <AskAIPanel />

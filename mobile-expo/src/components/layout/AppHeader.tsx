@@ -6,7 +6,7 @@ import { IconButton } from "@/components/ui/IconButton";
 
 /**
  * A small per-screen header (title, current-user name, sign-in/out button) shown at the top of
- * every tab screen's content. Mirrors the content of web/src/components/layout/Header.tsx — Expo
+ * every tab screen's content. Mirrors the content of web/src/components/layout/Header.tsx - Expo
  * Router's native stack header does not carry auth state naturally and there is no meaningful
  * mobile equivalent of the web reference's persistent app shell across a bottom-tab layout, so
  * this renders inline instead.

@@ -11,7 +11,7 @@ export default function AskPage(): React.JSX.Element {
         <h1 className="font-display text-2xl font-semibold tracking-tight">Ask AI</h1>
         <p className="text-sm text-muted-foreground">
           Ask a question in plain language. The app finds the most relevant documents in the library, then asks an
-          LLM to answer strictly from their content — with citations back to the source documents.
+          LLM to answer strictly from their content - with citations back to the source documents.
         </p>
       </div>
 

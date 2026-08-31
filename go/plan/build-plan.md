@@ -1,4 +1,4 @@
-# Build Plan — Mudbase Showcase: Docs Search (Go port)
+# Build Plan - Mudbase Showcase: Docs Search (Go port)
 Generated: 2026-08-01
 Mode: port (one of several language/platform ports of `../web/`, the reference Next.js
 implementation)
@@ -43,7 +43,7 @@ Stack: Go 1.26 + net/http + chi/v5 + html/template + gorilla/sessions, backed by
   block, and this app's own handler makes the one Anthropic Claude completion call the Function's
   sandbox cannot make itself.
 
-## Data Models (Mudbase Collections — already provisioned, used as-is, not recreated)
+## Data Models (Mudbase Collections - already provisioned, used as-is, not recreated)
 
 Identical schema to `web/plan/build-plan.md` - restated here only as this app's Go structs
 (`internal/models/*.go`):
@@ -75,7 +75,7 @@ Register                          → POST /api/auth/local/signup/customer (raw 
 Sign out                          → POST /api/auth/logout (revokes token) + clears session identity
 ```
 
-## Ask AI architecture — the actual point of this showcase
+## Ask AI architecture - the actual point of this showcase
 
 ### The naive plan and why it doesn't work
 

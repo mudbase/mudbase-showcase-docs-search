@@ -6,23 +6,23 @@ import { secureStorage, STORAGE_KEYS } from "./secureStorage";
 import { authResultSchema, mudbaseUserSchema, type AuthResult, type MudbaseUser } from "./schemas";
 
 /**
- * Thin, typed wrapper around the real generated `mudbase-sdk` — same mechanism the sibling
+ * Thin, typed wrapper around the real generated `mudbase-sdk` - same mechanism the sibling
  * `mudbase-showcase-kanban/mobile-expo` and `mudbase-showcase-social/mobile-expo` ports use: real
  * generated `*Api` class instances (`AuthenticationApi`/`DataApi`), not a unified client the SDK
  * doesn't ship. Every generated method takes a single `requestParameters` object (e.g.
- * `loginLocalUser({ loginLocalUserRequest: {...} })`), NOT positional arguments — calling
+ * `loginLocalUser({ loginLocalUserRequest: {...} })`), NOT positional arguments - calling
  * positionally throws a client-side `RequiredError` before any request reaches the network.
  *
  * This file adds on top of the generated SDK: token storage (SecureStore, never AsyncStorage), a
  * single-retry-on-401 refresh with in-flight dedupe (ported from web/src/lib/mudbase.ts's
- * `refreshInFlight` pattern — refresh tokens rotate on every use and a reused one revokes the
+ * `refreshInFlight` pattern - refresh tokens rotate on every use and a reused one revokes the
  * whole session, so concurrent 401s must share one refresh call, never race), and zod-validated
  * narrowing of the generated response types where they under-describe the real payload (see
  * schemas.ts).
  *
  * Unlike the kanban port (which has no anonymous session at all), this app's auth model matches
  * the web reference and the sibling social port: every collection read requires *some* JWT
- * (verified live against this exact project — every read 401s with zero auth, even with the
+ * (verified live against this exact project - every read 401s with zero auth, even with the
  * project's own `pk_` publishable key), so a bootstrap anonymous session lets guests browse and
  * search without a login screen. Creating/editing/deleting documents and using Ask AI still
  * require a real, signed-in `customer` account.
@@ -77,7 +77,7 @@ class MudbaseClient {
   private readonly authApi = new AuthenticationApi(this.configuration);
   private readonly dataApi = new DataApi(this.configuration);
 
-  /** True for both a real signed-in author and the bootstrap guest — see isRealUser() in lib/rbac.ts for the distinction the UI cares about. */
+  /** True for both a real signed-in author and the bootstrap guest - see isRealUser() in lib/rbac.ts for the distinction the UI cares about. */
   isAuthenticated(): boolean {
     return this.token !== null;
   }
@@ -118,13 +118,13 @@ class MudbaseClient {
 
   /**
    * Refresh tokens rotate on every use and a reused one revokes the session (platform
-   * reuse-detection) — this in-flight promise is shared across concurrent 401s to guarantee at
+   * reuse-detection) - this in-flight promise is shared across concurrent 401s to guarantee at
    * most one refresh call per expiry, never a stampede that would trip reuse-detection itself.
    * Faithful port of web/src/lib/mudbase.ts's `refreshAccessToken()` / `refreshInFlight`.
    */
   private async refreshSession(): Promise<void> {
     if (!this.refreshTokenValue) {
-      throw new MudbaseApiError("No refresh token available — sign in again.", 401);
+      throw new MudbaseApiError("No refresh token available - sign in again.", 401);
     }
     if (!this.refreshing) {
       this.refreshing = (async (): Promise<void> => {
@@ -160,10 +160,10 @@ class MudbaseClient {
   // ─── Auth ─────────────────────────────────────────────────────────────────
 
   /**
-   * Every collection read requires *some* JWT — verified live against this exact project (see
+   * Every collection read requires *some* JWT - verified live against this exact project (see
    * ../plan/build-plan.md): an anonymous session satisfies that without forcing a login screen on
    * first launch, exactly like the web reference app's guest-browsing bootstrap. Publishing,
-   * editing, deleting, and Ask AI still require a real, signed-in customer account — enforced both
+   * editing, deleting, and Ask AI still require a real, signed-in customer account - enforced both
    * by Mudbase's own collection permissions and by this app's isRealUser() UI gate.
    */
   async createAnonymousSession(): Promise<MudbaseUser> {
@@ -210,7 +210,7 @@ class MudbaseClient {
     try {
       await this.authApi.logoutLocalUser();
     } catch {
-      // Best-effort server-side revoke — always clear local tokens regardless.
+      // Best-effort server-side revoke - always clear local tokens regardless.
     } finally {
       await this.clearTokens();
     }

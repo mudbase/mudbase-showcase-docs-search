@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Docs Search — Document library</title>
+  <title>Docs Search - Document library</title>
   <th:block th:replace="~{fragments/layout :: head-assets}"></th:block>
 </head>
 <body>
@@ -29,7 +29,7 @@
 
   <div th:if="${documents.isEmpty()}" class="empty-state">
     <p th:if="${searchTerm != null and !searchTerm.isEmpty()}" th:text="'No documents matched &quot;' + ${searchTerm} + '&quot;.'">No documents matched.</p>
-    <p th:unless="${searchTerm != null and !searchTerm.isEmpty()}">No documents yet — be the first to add one.</p>
+    <p th:unless="${searchTerm != null and !searchTerm.isEmpty()}">No documents yet - be the first to add one.</p>
   </div>
 
   <div th:unless="${documents.isEmpty()}" class="document-grid">

@@ -1,7 +1,7 @@
-# Mudbase Showcase — Docs Search
+# Mudbase Showcase - Docs Search
 
 An AI-powered knowledge-base search app built almost entirely on **[Mudbase](https://www.mudbase.dev)**
-— auth, database, and a serverless Function for retrieval ranking. The same app, reimplemented
+- auth, database, and a serverless Function for retrieval ranking. The same app, reimplemented
 once per official Mudbase SDK, so every supported language has a real, runnable reference app
 rather than a toy snippet.
 
@@ -10,7 +10,7 @@ collection/permission schema) and demonstrates the same feature set: a document 
 keyword search, and an "Ask AI" feature that retrieves the most relevant documents and asks an LLM
 to answer grounded in them.
 
-The LLM API key never touches the client, but it does **not** live inside the Function itself —
+The LLM API key never touches the client, but it does **not** live inside the Function itself -
 Mudbase Functions run in a sandbox with zero network access (verified against the platform's own
 `isolated-vm` runner source), so a Function cannot make the outbound call to an LLM provider no
 matter what env var it holds. Each port's Function does the retrieval-ranking work the sandbox
@@ -34,7 +34,7 @@ architecture" for the full reasoning, source citations, and live verification.
 | [`php/`](./php) | Server-rendered web app | PHP |
 | [`swift/`](./swift) | iOS app (SwiftUI) | Swift |
 
-Each directory is self-contained with its own README, dependency manifest, and `.env.example` —
+Each directory is self-contained with its own README, dependency manifest, and `.env.example` -
 clone this repo and only set up the language you care about.
 
 ## Prerequisite: clone the SDK repo as a sibling
@@ -52,17 +52,17 @@ some-folder/
 
 ## Data model & AI architecture
 
-- **documents** — `title`, `content`, `tags?`, `authorId`, `authorName`
-- **search_log** — `queryText`, `userId?`, `userName?`, `resultCount`
+- **documents** - `title`, `content`, `tags?`, `authorId`, `authorName`
+- **search_log** - `queryText`, `userId?`, `userName?`, `resultCount`
 
 Retrieval is simple keyword/substring matching across `title`+`content`+`tags` (no vector DB
 dependency, to keep this achievable entirely on Mudbase's own primitives). A real, deployed
 Mudbase Function re-ranks the shortlisted candidates and assembles a grounded context block; the
-actual LLM completion call (Anthropic Claude by default — you supply your own API key) happens in
+actual LLM completion call (Anthropic Claude by default - you supply your own API key) happens in
 each port's smallest possible server-side surface, since the Function's own sandbox has no
-network access to call an LLM provider directly — see `web/plan/build-plan.md` "Ask AI
+network access to call an LLM provider directly - see `web/plan/build-plan.md` "Ask AI
 architecture" for the full reasoning and source citations.
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+MIT - see [LICENSE](./LICENSE).

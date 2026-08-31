@@ -9,7 +9,7 @@ export interface TextFieldProps extends TextInputProps {
 
 /**
  * React Hook Form's `register()` binds directly to DOM `<input>` refs and does not work with React
- * Native's `TextInput` — RN integration requires `Controller`, so every form in this app wraps
+ * Native's `TextInput` - RN integration requires `Controller`, so every form in this app wraps
  * this component in a `<Controller render={({ field }) => <TextField {...field} .../>} />` rather
  * than calling `register()` the way the web reference app does.
  */

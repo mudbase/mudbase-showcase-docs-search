@@ -4,7 +4,7 @@ import type { MudbaseUser } from "@/api/schemas";
 
 interface UseAuthReturn {
   user: MudbaseUser | null;
-  /** A real, signed-in author — distinct from the always-present anonymous guest session. */
+  /** A real, signed-in author - distinct from the always-present anonymous guest session. */
   isAuthenticated: boolean;
   isInitializing: boolean;
   isSubmitting: boolean;
@@ -14,7 +14,7 @@ interface UseAuthReturn {
   clearError: () => void;
 }
 
-/** Thin selector hook over the auth store — screens read/act through this, never the store directly. */
+/** Thin selector hook over the auth store - screens read/act through this, never the store directly. */
 export function useAuth(): UseAuthReturn {
   const user = useAuthStore((s) => s.user);
   const isInitializing = useAuthStore((s) => s.isInitializing);

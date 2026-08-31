@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /**
  * Contract for the Ask AI proxy request (see hooks/useAskAI.ts and plan/build-plan.md "Ask AI
- * architecture"). Byte-for-byte port of web/src/lib/ask-schema.ts — this app's client sends the
+ * architecture"). Byte-for-byte port of web/src/lib/ask-schema.ts - this app's client sends the
  * exact same shape the web reference app's own `POST /api/ask` Route Handler already validates,
  * since that route (or a deployment of it) is what this app's proxy points at.
  */

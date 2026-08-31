@@ -1,4 +1,4 @@
-# Mudbase Showcase — Docs Search (Go)
+# Mudbase Showcase - Docs Search (Go)
 
 An AI-powered knowledge-base search app built **almost entirely on
 [Mudbase](https://www.mudbase.dev)** - auth, database, and a serverless Function for retrieval

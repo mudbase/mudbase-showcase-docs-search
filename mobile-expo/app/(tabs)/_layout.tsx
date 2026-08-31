@@ -15,7 +15,7 @@ function toIconColor(color: ColorValue): string {
 
 /**
  * Unlike the sibling kanban port, this app has a real anonymous-session guest experience (see
- * plan/build-plan.md "Auth model") — both tabs are reachable without signing in. Only publish/
+ * plan/build-plan.md "Auth model") - both tabs are reachable without signing in. Only publish/
  * edit/delete actions (gated inline, not at the router level) require a real account.
  */
 export default function TabsLayout(): React.JSX.Element {

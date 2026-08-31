@@ -9,7 +9,7 @@ export interface ScoredDocument {
 /**
  * Client-side keyword retrieval: scores each document by counting query-term occurrences across
  * title (weight 3), tags (weight 2), and content (weight 1). No vector DB, no external search
- * service — simple substring matching, per plan/build-plan.md. Byte-for-byte port of
+ * service - simple substring matching, per plan/build-plan.md. Byte-for-byte port of
  * web/src/lib/retrieval.ts.
  */
 export function scoreDocuments(documents: DocumentRecord[], query: string): ScoredDocument[] {

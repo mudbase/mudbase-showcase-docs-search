@@ -1,4 +1,4 @@
-# Mudbase Showcase — Docs Search (Java / Spring Boot edition) — Build Plan
+# Mudbase Showcase - Docs Search (Java / Spring Boot edition) - Build Plan
 
 Java/Spring Boot + Thymeleaf reimplementation of the reference Next.js app at `../web`. Same
 Mudbase project, same two collections (`documents`/`search_log`), same deployed Ask AI Function,
@@ -34,7 +34,7 @@ dev.mudbase.showcase.docssearch/
                        GlobalExceptionHandler, dto/*
 ```
 
-## Data model (already provisioned — do not recreate)
+## Data model (already provisioned - do not recreate)
 
 Identical to `../web/plan/build-plan.md` "Data model": project `6a6d3faad07caabbbdfc5698`,
 `documents` (`6a6d3fcdd07caabbbdfc5842`), `search_log` (`6a6d3fcdd07caabbbdfc5857`), single
@@ -79,7 +79,7 @@ Both documented and reused verbatim from `mudbase-showcase-kanban/java`,
    this SDK version's OpenAPI spec never declared. Same fix, applied to every `list`/`listPage`
    call this app makes (library, Ask AI candidate scoring, recent searches).
 
-## Ask AI architecture — how this Java port satisfies the same two platform constraints
+## Ask AI architecture - how this Java port satisfies the same two platform constraints
 
 See `../web/plan/build-plan.md` "Ask AI architecture" for the full, source-verified case for why
 the LLM completion call cannot live inside the Mudbase Function (`rbacCheck("functions","create")`

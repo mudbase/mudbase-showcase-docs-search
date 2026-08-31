@@ -19,7 +19,7 @@ import type { AskCitation } from "@/lib/ask-schema";
  * this feature depends on an optionally-configured proxy. When EXPO_PUBLIC_ASK_PROXY_URL is unset,
  * this panel still runs the real client-side keyword retrieval (the same scoreDocuments() the
  * proxy's own Mudbase Function re-ranks server-side) so a developer can see the pipeline is wired
- * up to the exact point the missing server-side surface would take over — it never fabricates an
+ * up to the exact point the missing server-side surface would take over - it never fabricates an
  * answer.
  */
 export function AskAIPanel(): React.JSX.Element {
@@ -52,7 +52,7 @@ export function AskAIPanel(): React.JSX.Element {
     }
 
     if (!ASK_PROXY_URL) {
-      // Documented architectural gap (see file header) — show what retrieval alone found instead
+      // Documented architectural gap (see file header) - show what retrieval alone found instead
       // of pretending the LLM step ran.
       setLocalTitles(scored.slice(0, 5).map((entry) => entry.document.title));
       await logSearch.mutateAsync({ queryText: trimmed, resultCount: scored.length });
@@ -99,7 +99,7 @@ export function AskAIPanel(): React.JSX.Element {
         <Card className="gap-1.5 border-warning/40 bg-warning/5">
           <Text className="text-xs font-semibold uppercase tracking-wide text-warning">Known limitation</Text>
           <Text className="text-xs text-muted-foreground">
-            No Ask AI proxy is configured (EXPO_PUBLIC_ASK_PROXY_URL is unset) — this mobile app has no
+            No Ask AI proxy is configured (EXPO_PUBLIC_ASK_PROXY_URL is unset) - this mobile app has no
             server of its own, and the LLM completion call cannot happen on-device or inside the
             Mudbase Function (see plan/build-plan.md). Retrieval below still runs for real against
             the documents you have loaded.

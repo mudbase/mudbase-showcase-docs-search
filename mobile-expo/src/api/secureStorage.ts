@@ -2,11 +2,11 @@ import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
 
 /**
- * Auth tokens live here, never in AsyncStorage/MMKV — a hard security rule for this project (see
+ * Auth tokens live here, never in AsyncStorage/MMKV - a hard security rule for this project (see
  * builder CLAUDE.md "Mobile" security non-negotiables). SecureStore wraps iOS Keychain / Android
  * Keystore. On web, `expo-secure-store`'s own `ExpoSecureStore.web.ts` module has every method
  * undefined (not a localStorage shim), so calling it there throws before anything reaches storage
- * — the same gap the sibling `mudbase-showcase-kanban/mobile-expo` port documents; `IS_WEB`
+ * - the same gap the sibling `mudbase-showcase-kanban/mobile-expo` port documents; `IS_WEB`
  * routes storage straight to `window.localStorage` instead, purely as a local-smoke-test / QA
  * fallback, never a production path.
  */
@@ -14,7 +14,7 @@ const IS_WEB = Platform.OS === "web";
 
 if (IS_WEB) {
   // eslint-disable-next-line no-console
-  console.warn("[secureStorage] Running on web — falling back to localStorage, not secure for production.");
+  console.warn("[secureStorage] Running on web - falling back to localStorage, not secure for production.");
 }
 
 const SECURE_STORE_OPTIONS: SecureStore.SecureStoreOptions = {
@@ -71,14 +71,14 @@ export const secureStorage = {
       try {
         window.localStorage.removeItem(key);
       } catch {
-        // Key may already be absent — not an error condition worth surfacing.
+        // Key may already be absent - not an error condition worth surfacing.
       }
       return;
     }
     try {
       await SecureStore.deleteItemAsync(key, SECURE_STORE_OPTIONS);
     } catch {
-      // Key may already be absent — not an error condition worth surfacing.
+      // Key may already be absent - not an error condition worth surfacing.
     }
   },
 };

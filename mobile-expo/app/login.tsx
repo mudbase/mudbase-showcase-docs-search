@@ -11,7 +11,7 @@ export default function LoginScreen(): React.JSX.Element {
           <Text className="text-3xl font-semibold text-foreground">Docs Search</Text>
           <Text className="text-muted-foreground">Sign in to publish, edit, or delete documents.</Text>
         </View>
-        {/* router.back() — /login is reached by an explicit "Sign in" tap from a guest session
+        {/* router.back() - /login is reached by an explicit "Sign in" tap from a guest session
             that already has a valid anonymous session underneath it, unlike the kanban port
             where /login is the only reachable screen for an unauthenticated user. */}
         <LoginForm onSuccess={() => (router.canGoBack() ? router.back() : router.replace("/"))} />

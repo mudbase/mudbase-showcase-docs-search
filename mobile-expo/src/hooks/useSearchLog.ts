@@ -5,7 +5,7 @@ import { searchLogRecordSchema } from "@/api/schemas";
 import { SEARCH_LOG_COLLECTION_ID } from "@/config/env";
 import { useAuth } from "@/hooks/useAuth";
 
-/** Most recent 10 Ask AI queries, newest first — mirrors web/src/components/ask/RecentSearches.tsx. */
+/** Most recent 10 Ask AI queries, newest first - mirrors web/src/components/ask/RecentSearches.tsx. */
 export function useRecentSearches() {
   return useQuery({
     queryKey: ["collection", SEARCH_LOG_COLLECTION_ID, "list"],
@@ -22,7 +22,7 @@ export interface LogSearchInput {
   resultCount: number;
 }
 
-/** Writes one search_log row per Ask AI query, for both guests and signed-in users — mirrors
+/** Writes one search_log row per Ask AI query, for both guests and signed-in users - mirrors
  * web/src/components/ask/AskAIPanel.tsx's handleAsk(). userId/userName are only included for a
  * real signed-in author; never a placeholder string for a guest. */
 export function useLogSearch() {
